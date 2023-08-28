@@ -1,19 +1,22 @@
 
 
-import { ActionCreators } from "../app/expensesReducer";
+import { setExpenses, newExpense, editExpense, deleteExpense } from "../app/expensesSlice";
+import axios from 'axios'
+
+const axiosInstance = axios.create({
+  baseURL : 'https://localhost:7055/Expenses',
+
+});
 
 export const GetExpenses = async (dispatch) => {
 
     try {
-        const expenses = [
-            { id: 1, description: 'Groceries', amount: 23.166 },
-            { id: 2, description: 'Gas', amount: 18.52 },
-            { id: 3, description: 'Student Loan', amount: 600 },
-        ]
+        const { data } = await axiosInstance.get();
 
-        dispatch(ActionCreators.setExpenses(expenses));
+        dispatch(setExpenses(data));
     } catch (error) {
-        console.log('Error!');
+        debugger
+        console.log(error);
     }
 
 }
@@ -22,9 +25,9 @@ export const GetExpenses = async (dispatch) => {
 export const NewExpense = async (dispatch, expense) => {
     
     try {
-
+        const { data } = await axiosInstance.post("",expense);
         //api call
-        dispatch(ActionCreators.newExpenses({ id: 10, description: expense.description, amount: expense.amount }))
+        dispatch(newExpense(data))
     } catch (error) {
         console.log('Error!');
     }
@@ -36,7 +39,8 @@ export const EditExpense = async (dispatch, expense) => {
     try {
        
         //api call
-        dispatch(ActionCreators.editExpenses(expense))
+        const { data } = await axiosInstance.put("",expense);
+        dispatch(editExpense(data))
     } catch (error) {
         console.log('Error!');
     }
@@ -47,7 +51,8 @@ export const DeleteExpenses = async (dispatch, expense) => {
     
     try {
         //api call
-        dispatch(ActionCreators.deleteExpenses(expense))
+       await axiosInstance.delete("",{data: {...expense}});
+        dispatch(deleteExpense(expense))
     } catch (error) {
         console.log('Error!');
     }
