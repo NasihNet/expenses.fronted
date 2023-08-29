@@ -1,14 +1,20 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAction  } from '@reduxjs/toolkit'
+import { toast } from 'react-toastify';
 
 const initialState = {
   expenses: [],
 }
 
+export const setExpensesError = createAction('setExpensesError');
+export const newExpenseError = createAction('newExpenseError');
+export const editExpenseError = createAction('editExpenseError');
+export const deleteExpenseError = createAction('deleteExpenseError');
+
 export const expensesSlice = createSlice({
   name: 'expenses',
   initialState,
   reducers: {
-    setExpenses: (state, action) => {
+    setExpenses: (state, action) => {    
        return { ...state, expenses: [...action.payload] };
     },
     newExpense: (state, action) => {
