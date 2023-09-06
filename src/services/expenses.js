@@ -5,15 +5,23 @@ import { setExpenses, newExpense, editExpense, deleteExpense,
 import axios from 'axios'
 
 const axiosInstance = axios.create({
-  baseURL : 'https://localhost:7055/Expenses',
-
+  baseURL : `https://localhost:7055/expenses`,
 });
+//we need to attach token to our request when set the authorize to our api
+
+axiosInstance.interceptors.request.use((config) => {
+    config.headers = { authorization: 'Bearer ' + sessionStorage.getItem('token') };
+    return config;
+});
+
+
 
 export const GetExpenses = async (dispatch) => {
 
     try {
-        const { data } = await axiosInstance.get();
 
+        const { data } = await axiosInstance.get();
+debugger
         dispatch(setExpenses(data));
     } catch (error) {
        
@@ -36,7 +44,7 @@ export const NewExpense = async (dispatch, expense) => {
 }
 
 export const EditExpense = async (dispatch, expense) => {
-    debugger
+    
     try {
        
         //api call
