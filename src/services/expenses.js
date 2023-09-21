@@ -24,7 +24,7 @@ export const GetExpenses = async (dispatch) => {
 debugger
         dispatch(setExpenses(data));
     } catch (error) {
-       
+           
         dispatch(setExpensesError());
     }
 

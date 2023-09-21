@@ -38,9 +38,9 @@ if (expense !== undefined) {
         <Row>
             <Col>
                 <Form.Label>Description</Form.Label>
-                <Form.Control as='select'
-                    onChange={event => setDescription(event.target.value)}>
-                    {descriptions.map((d, idx) => <option key={idx}>{d}</option>)}
+                <Form.Control as='input'
+                    onChange={event => setDescription(event.target.value)} placeholder='Description'>
+                  
                 </Form.Control>
             </Col>
 

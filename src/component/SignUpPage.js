@@ -31,7 +31,7 @@ const SignUpPage = () => {
                 <FormControl placeholder='Confirm Password' type='password' onChange={event => setConfirmPassword(event.target.value)}></FormControl>
             </InputGroup>
             <Button type='submit' variant='success' style={{ margin: 'auto', display: 'block', width: '10rem' }}
-            disabled={ confirmPassword !== password || password.length < 0}>Sign In</Button>
+            disabled={ confirmPassword !== password || password.length < 0}>Sign Up</Button>
         </Form>
     </div>
 
